@@ -19,9 +19,23 @@ def main():
         print("Senha vazia — cancelado.")
         return
     conteudo = '{"%s": "%s"}' % (mes, _hash(senha))
+
+    # Salva num arquivo pra evitar erro de copiar a linha errada do terminal:
+    # basta abrir esse arquivo, selecionar tudo (Ctrl+A), copiar e colar no Gist.
+    from pathlib import Path
+    arq = Path(__file__).parent / "senha_para_o_gist.txt"
+    arq.write_text(conteudo, encoding="utf-8")
+
     print()
-    print("1) COLE ISTO no Gist (substitua TODO o conteudo do arquivo):")
+    print("=" * 60)
+    print(f"PRONTO! Arquivo gerado:  {arq.name}")
+    print("=" * 60)
     print()
+    print("1) Abra o arquivo  senha_para_o_gist.txt  (na pasta do robo),")
+    print("   selecione TUDO (Ctrl+A), copie (Ctrl+C) e cole no Gist")
+    print("   (Edit -> apague tudo -> cole -> Save).")
+    print()
+    print("   O conteudo e exatamente este:")
     print("   " + conteudo)
     print()
     print(f"2) Avise os amigos a senha do mes {mes}:  {senha}")

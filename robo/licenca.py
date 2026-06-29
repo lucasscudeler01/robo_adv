@@ -81,10 +81,17 @@ def checar_licenca(url: str, tentativas: int = 3) -> None:
 
     try:
         dados = _baixar_json(url)
+    except (ValueError, json.JSONDecodeError) as e:
+        # conectou, mas o conteudo do Gist veio vazio ou nao e JSON valido
+        print("O Gist da senha esta VAZIO ou com conteudo invalido.")
+        print("Cole nele uma linha como:  {\"%s\": \"<hash>\"}" % mes_atual())
+        print("(gere com  python gerar_senha.py  e confira a URL no config.yaml).")
+        print(f"Detalhe tecnico: {e}")
+        sys.exit(1)
     except Exception as e:
-        print("Nao consegui verificar a licenca (sem internet ou Gist fora do ar).")
+        print("Nao consegui acessar o Gist (sem internet ou URL errada).")
         print(f"Detalhe: {e}")
-        print("Conecte a internet e tente de novo.")
+        print("Conecte a internet e confira a 'gist_url' no config.yaml.")
         sys.exit(1)
 
     mes = mes_atual()
