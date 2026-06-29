@@ -1,0 +1,75 @@
+# =============================================================================
+# CONFIGURACAO DO ROBO DE MANIFESTACAO
+# =============================================================================
+# Edite somente este arquivo se algum caminho ou URL mudar.
+# Linhas que comecam com # sao comentarios e nao afetam o robo.
+# =============================================================================
+
+# Trava mensal (licenca). URL "raw" do Gist secreto que guarda a senha do mes.
+# O admin gera o conteudo com  python gerar_senha.py  e cola no Gist.
+# (Pegue a URL clicando em "Raw" dentro do Gist; deve terminar sem /<commit>/
+# pra sempre apontar pra versao mais nova.)
+licenca:
+  gist_url: "https://gist.githubusercontent.com/lucasscudeler01/ab22c7e0d4a26da8990eadd305eae92e/raw/gistfile1.txt"
+
+# URLs dos sistemas
+# OBS: Loy Legal nao tem URL separada — eh acessado de dentro do NPJUR
+# pelo botao "Peticionamento Eletronico".
+urls:
+  npjur_home: "https://npjur.paschoalotto.com.br/"
+  npjur_minha_fila: "https://npjur.paschoalotto.com.br/sistema/jugerencia_fila/juagendamentos_fila/MinhaFila.php"
+
+# Caminho da planilha de entrada (preenchida com os processos do dia)
+planilha:
+  # planilha com a coluna L = ENDEREÇO (desentranhamento com novo endereço);
+  # a antiga (planilha_entrada.xlsm) continua funcionando se voltar aqui
+  caminho: "dados/planilha_desentranhamento.xlsm"
+  aba: "PREENCHER INFORMAÇÕES"
+
+# Pasta onde os PDFs gerados sao salvos
+saida:
+  pasta_pdfs: "pdfs"
+  pasta_logs: "logs"
+  # Limpeza automatica: mantem so as ultimas N rodadas de dumps/relatorios e
+  # PDFs/Words antigos (roda no inicio de cada execucao). estado.json e
+  # arquivos de processo ainda incompleto NUNCA sao apagados. 0 = nao limpar.
+  manter_rodadas: 5
+
+# Modo de execucao
+execucao:
+  # 'passo_a_passo' = pausa entre cada processo, pra voce conferir antes de seguir
+  # 'continuo' = roda todos os processos sem parar (so use depois de testar bem)
+  modo: "continuo"
+
+  # Ate onde o robo vai em cada processo (teste gradual!):
+  #   word           -> so baixa o Word
+  #   pdf            -> + converte pra PDF                (NENHUM efeito no processo)
+  #   anexado        -> + anexa no NPJUR                  (efeito interno, reversivel)
+  #   acompanhamento -> + registra acompanhamento         (efeito interno)
+  #   peticionado    -> + protocola (peticionamento NPJUR) (IRREVERSIVEL!)
+  #   concluido      -> + cumpre o prazo na fila          (fluxo completo)
+  etapa_final: "concluido"
+
+  # true = antes de 'Enviar documentos selecionados' (protocolo), pausa pra
+  # voce conferir a tela. So mude pra false quando estiver 100% calibrado.
+  confirmar_antes_protocolar: false
+
+  # Tempo de espera (em segundos) apos cada acao no NPJUR pra esperar o reload
+  espera_reload: 2
+
+  # Tempo maximo (em segundos) pra esperar uma pagina carregar
+  timeout_pagina: 30
+
+  # "Marcacao do processo" no Cadastro de Acompanhamento. Processo antigo
+  # ja vem marcado (o robo nao mexe); em processo novo o NPJUR exige e o
+  # robo seleciona este valor. Opcoes: PROCESSUAL ou PRODUCAO.
+  marcacao_processo: "PROCESSUAL"
+
+  # Vara usada quando o Gerador de Teses reclama "ajustar os campos VARA e
+  # FORO" e a sugestao do NPJUR esta vazia ou nao casa com o dropdown.
+  vara_padrao: "1ª VARA CÍVEL"
+
+# Perfil do Chrome onde o robo guarda login/cookies (deixa como esta)
+chrome:
+  pasta_perfil: ".chrome_perfil_robo"
+  modo_headless: false  # false = janela visivel (recomendado), true = invisivel

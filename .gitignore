@@ -1,0 +1,24 @@
+# Ambiente e cache
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Dados e saidas de cada usuario (NUNCA versionar — sao locais de cada um)
+logs/
+pdfs/
+.chrome_perfil_robo/
+dados/*.xlsm
+dados/*.xlsx
+dados/*.xls
+
+# Arquivos temporarios do checkpoint
+*.json.tmp
+*.json.bak
+
+# Documentacao de ADMIN (so do Lucas — nao distribuir pros amigos)
+Robo Paschoalotto/
+
+# Sistema
+Thumbs.db
+desktop.ini
