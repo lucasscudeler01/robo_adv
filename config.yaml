@@ -5,8 +5,9 @@
 # Linhas que comecam com # sao comentarios e nao afetam o robo.
 # =============================================================================
 
-# Trava mensal (licenca). URL "raw" do Gist secreto que guarda a senha do mes.
-# O admin gera o conteudo com  python gerar_senha.py  e cola no Gist.
+# Trava mensal (licenca). URL "raw" do Gist secreto com a senha do mes.
+# O Gist tem UMA linha no formato:  AAAA-MM senha   (ex.: 2026-06 bauru123).
+# Trocar a senha = editar o texto depois do espaco, direto no Gist.
 # (Pegue a URL clicando em "Raw" dentro do Gist; deve terminar sem /<commit>/
 # pra sempre apontar pra versao mais nova.)
 licenca:
