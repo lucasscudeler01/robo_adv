@@ -59,14 +59,10 @@ def senha_confere(senha: str, dados: dict, mes: str) -> bool:
 
 
 def _pedir_senha(mes: str) -> str:
-    # getpass esconde o que e digitado; em alguns terminais ele falha — cai
-    # pro input normal nesse caso.
-    prompt = f"Senha do mes ({mes}): "
-    try:
-        from getpass import getpass
-        return getpass(prompt)
-    except Exception:
-        return input(prompt)
+    # Senha VISIVEL (input normal): pra amigos, esconder o texto so confunde
+    # ("parece que nao digita nada") e nao agrega seguranca real numa senha
+    # compartilhada. Por isso NAO usa getpass.
+    return input(f"Senha do mes ({mes}) e ENTER: ")
 
 
 def checar_licenca(url: str, tentativas: int = 3) -> None:
